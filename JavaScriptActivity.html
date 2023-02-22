@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Edit Remove HTML Table Row</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            
+            .container{overflow: hidden}
+            .tab{float: left;}
+            .tab-2{margin-left: 50px}
+            .tab-2 input{display: block;margin-bottom: 10px}
+            tr{transition:all .25s ease-in-out}
+            tr:hover{background-color:#EEE;cursor: pointer}
+            
+        </style>
+        
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="tab tab-1">
+                <table id="table" border="1">
+                    <tr>
+                        <th>Player Id</th>
+                        <th>Player Name</th>
+                        <th>Runs</th>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="tab tab-2">
+<table>
+       <tr><td>         Player Id :<input type="text" name="p1" id="p1"> </td></tr>
+               <tr><td> Player Name :<input type="text" name="pp1" id="pp1"> </td></tr>
+               <tr><td> Runs :<input type="number" name="r1" id="r1"> </td></tr>
+                
+               <tr><td> <button onclick="addHtmlTableRow();">Add</button></td><td> <button onclick="deleteRows();">Remove</button></td></tr>
+            </div>
+</table>
+        </div>
+        
+        <script>
+            
+            var rIndex,
+                table = document.getElementById("table");
+            
+            // check the empty input
+            function checkEmptyInput()
+            {
+                var isEmpty = false,
+                    p1 = document.getElementById("p1").value,
+                    pp1 = document.getElementById("pp1").value,
+                    r1 = document.getElementById("r1").value;
+            
+                if(p1 === ""){
+                    alert("Player Id Connot Be Empty");
+                    isEmpty = true;
+                }
+                else if(pp1 === ""){
+                    alert("Player Name Connot Be Empty");
+                    isEmpty = true;
+                }
+                else if(r1 === ""){
+                    alert("Runs Connot Be Empty");
+                    isEmpty = true;
+                }
+                return isEmpty;
+            }
+            
+            // add Row
+            function addHtmlTableRow()
+            {
+                // get the table by id
+                // create a new row and cells
+                // get value from input text
+                // set the values into row cell's
+                if(!checkEmptyInput()){
+                var newRow = table.insertRow(table.length),
+                    cell1 = newRow.insertCell(0),
+                    cell2 = newRow.insertCell(1),
+                    cell3 = newRow.insertCell(2),
+                    p1 = document.getElementById("p1").value,
+                    pp1 = document.getElementById("pp1").value,
+                    r1 = document.getElementById("r1").value;
+            
+                cell1.innerHTML = p1;
+                cell2.innerHTML = pp1;
+                cell3.innerHTML = r1;
+                // call the function to set the event to the new row
+                selectedRowToInput();
+            }
+            }
+            
+            // display selected row data into input text
+            function selectedRowToInput()
+            {
+                
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                      // get the seected row index
+                      rIndex = this.rowIndex;
+                      document.getElementById("p1").value = this.cells[0].innerHTML;
+                      document.getElementById("pp1").value = this.cells[1].innerHTML;
+                      document.getElementById("r1").value = this.cells[2].innerHTML;
+                    };
+                }
+            }
+            selectedRowToInput();
+            
+          
+   
+            function deleteRows(){
+	var table = document.getElementById('table');
+	var rowCount = table.rows.length;
+	if(rowCount > '2'){
+		var row = table.deleteRow(rowCount-1);
+		rowCount--;
+	}
+	else{
+		alert('There should be atleast one row');
+	}
+}
+        </script>
+        
+    </body>
+</html>
